@@ -6,7 +6,9 @@
   font-family: "LogoFontMain";
   src: url("./fonts/Paytone_One/TiltNeon-Regular-VariableFont_XROT\,YROT.ttf");
 }
-
+.InfoFont {
+  font-family: LogoFontMain;
+}
 .App {
   text-align: center;
 }

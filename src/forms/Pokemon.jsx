@@ -1,15 +1,16 @@
 import * as React from "react";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
 import { styled } from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Chip from "@mui/material/Chip";
+
+import DataPokemon from "./DataPokemon";
+import AbilityPokemon from "./AbilityPokemon";
+import SpecialPower from "./SpecialPower";
 
 function Pokemon({ pokemonData }) {
   const Item = styled(Paper)(({ theme }) => ({
@@ -30,7 +31,7 @@ function Pokemon({ pokemonData }) {
       container
       rowSpacing={1}
       columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-      sx={{ padding: 1 }}
+      sx={{ padding: 3 }}
     >
       <Grid item xs={12}>
         <ItemImage
@@ -46,35 +47,44 @@ function Pokemon({ pokemonData }) {
               height: 180,
               objectFit: "cover",
             }}
-            image={pokemonData?.sprites.other["official-artwork"].front_default}
+            image={
+              pokemonData?.sprites?.other["official-artwork"]?.front_default
+            }
             title="Pokemon Image"
           />
           <Grid item xs={6}>
             {" "}
             <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
-                (ID:{pokemonData?.id}) {pokemonData?.name.toUpperCase()}
+              <Typography gutterBottom variant="h4">
+                (ID: {pokemonData?.id}) {pokemonData?.name?.toUpperCase()}
               </Typography>
+
+              {pokemonData?.types.map((type, index) => (
+                <Chip
+                  key={index}
+                  label={type.type.name.toUpperCase()}
+                  color={
+                    type.type.name.toLowerCase() === "fire"
+                      ? "error"
+                      : type.type.name.toLowerCase() === "electric"
+                      ? "warning"
+                      : type.type.name.toLowerCase() === "psyhic"
+                      ? "secondary"
+                      : type.type.name.toLowerCase() === "fighting"
+                      ? "success"
+                      : type.type.name.toLowerCase() === "grass"
+                      ? "success"
+                      : "primary"
+                  }
+                  style={{ marginRight: 8 }}
+                />
+              ))}
 
               <Typography
                 variant="body2"
                 color="text.secondary"
-                sx={{ padding: 1 }}
+                sx={{ padding: 2 }}
               >
-                {pokemonData?.types.map((type, index) => (
-                  <Chip
-                    key={index}
-                    label={type.type.name.toUpperCase()}
-                    color={
-                      type.type.name.toLowerCase() === "fire"
-                        ? "secondary"
-                        : "primary"
-                    }
-                    style={{ marginRight: 8 }}
-                  />
-                ))}
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
                 Weight: {pokemonData?.weight}kg <br />
                 Height: {pokemonData?.height}m
               </Typography>
@@ -85,44 +95,17 @@ function Pokemon({ pokemonData }) {
 
       <Grid item xs={6}>
         <Item>
-          <CardMedia
-            sx={{ height: 300, objectFit: "contain" }}
-            image={pokemonData?.sprites.other["official-artwork"].front_default}
-            title="Pokemon Image"
-          />
+          <AbilityPokemon pokemonData={pokemonData} />
         </Item>
       </Grid>
       <Grid item xs={6}>
         <Item>
-          {" "}
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
-              (ID:{pokemonData?.id}) {pokemonData?.name.toUpperCase()}
-            </Typography>
-
-            <Typography variant="body2" color="text.secondary">
-              {pokemonData?.types
-                .map((type) => type.type.name)
-                .join(", ")
-                .toUpperCase()}
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              Weight: {pokemonData?.weight}kg <br />
-              Height: {pokemonData?.height}m
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              {pokemonData?.stats.map((stat, index) => (
-                <React.Fragment key={index}>
-                  {`${stat.stat.name}: ${stat.base_stat}`}
-                  <br />
-                </React.Fragment>
-              ))}
-            </Typography>
-          </CardContent>
-          <CardActions>
-            <Button size="small">Share</Button>
-            <Button size="small">Learn More</Button>
-          </CardActions>
+          <DataPokemon pokemonData={pokemonData} />
+        </Item>
+      </Grid>
+      <Grid item xs={12}>
+        <Item>
+          <SpecialPower pokemonData={pokemonData} />
         </Item>
       </Grid>
     </Grid>

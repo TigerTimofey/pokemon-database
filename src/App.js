@@ -6,8 +6,9 @@ import Pokemon from "./forms/Pokemon";
 import Swal from "sweetalert2";
 
 function App() {
+  const [listOfPokemons, setListOfPokemons] = React.useState("");
   const [pokemon, setPokemon] = React.useState("");
-  const [pokemonData, setPokemonData] = React.useState("");
+  const [pokemonData, setPokemonData] = React.useState(null);
 
   const handleSearch = () => {
     fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`)
@@ -24,6 +25,17 @@ function App() {
           text: `There is no such Pokemon as ${pokemon}`,
           footer: '<a href="#">See list of all Pokemons</a>',
         });
+      });
+
+    fetch(`https://pokeapi.co/api/v2/pokemon?limit=1302&offset=0`)
+      .then((response) => response.json())
+      .then((data) => {
+        const pokemonNames = data.results.map((pokemon) => pokemon.name);
+        console.log("pokemonNames:", pokemonNames);
+        setListOfPokemons(pokemonNames);
+      })
+      .catch((err) => {
+        console.log("error", err.message);
       });
   };
 
