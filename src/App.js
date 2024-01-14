@@ -6,7 +6,7 @@ import Pokemon from "./forms/Pokemon";
 import Swal from "sweetalert2";
 
 function App() {
-  const [listOfPokemons, setListOfPokemons] = React.useState("");
+  const [listOfPokemons, setListOfPokemons] = React.useState([]);
   const [pokemon, setPokemon] = React.useState("");
   const [pokemonData, setPokemonData] = React.useState(null);
 
@@ -48,6 +48,7 @@ function App() {
           handleSearch={handleSearch}
           pokemon={pokemon}
           setPokemon={setPokemon}
+          listOfPokemons={listOfPokemons}
         />
       </div>
       <div className="App-header-pokemon Welcome">

@@ -2,19 +2,38 @@ import * as React from "react";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import Autocomplete from "@mui/material/Autocomplete";
 
-function SearchForm({ handleSearch, pokemon, setPokemon }) {
+function SearchForm({ handleSearch, pokemon, setPokemon, listOfPokemons }) {
   return (
     <Stack direction="row" spacing={2}>
-      <TextField
-        id="outlined-controlled"
+      <Autocomplete
+        id="pokemon-autocomplete"
+        options={listOfPokemons}
+        freeSolo
         value={pokemon}
-        color="success"
-        onChange={(event) => {
-          setPokemon(event.target.value);
+        onChange={(event, newValue) => {
+          setPokemon(newValue);
         }}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            label="Search for a Pokemon..."
+            color="success"
+            variant="outlined"
+            sx={{ width: 200 }}
+            onChange={(event) => {
+              setPokemon(event.target.value);
+            }}
+          />
+        )}
       />
-      <Button variant="contained" color="success" onClick={handleSearch}>
+      <Button
+        variant="contained"
+        color="success"
+        className="InfoFont"
+        onClick={handleSearch}
+      >
         Catch
       </Button>
     </Stack>
