@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import logo from "./logo.png";
 import "./App.css";
 import SearchForm from "./forms/SearchForm";
@@ -26,7 +26,8 @@ function App() {
           footer: '<a href="#">See list of all Pokemons</a>',
         });
       });
-
+  };
+  React.useEffect(() => {
     fetch(`https://pokeapi.co/api/v2/pokemon?limit=1302&offset=0`)
       .then((response) => response.json())
       .then((data) => {
@@ -37,7 +38,7 @@ function App() {
       .catch((err) => {
         console.log("error", err.message);
       });
-  };
+  }, []);
 
   return (
     <div className="App">

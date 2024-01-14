@@ -21,19 +21,14 @@ function SearchForm({ handleSearch, pokemon, setPokemon, listOfPokemons }) {
             label="Search for a Pokemon..."
             color="success"
             variant="outlined"
-            sx={{ width: 200 }}
+            sx={{ width: 230 }}
             onChange={(event) => {
               setPokemon(event.target.value);
             }}
           />
         )}
       />
-      <Button
-        variant="contained"
-        color="success"
-        className="InfoFont"
-        onClick={handleSearch}
-      >
+      <Button variant="contained" color="success" onClick={handleSearch}>
         Catch
       </Button>
     </Stack>
