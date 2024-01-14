@@ -1,21 +1,47 @@
+@font-face {
+  font-family: "LogoFont";
+  src: url("./fonts/Paytone_One/PaytoneOne-Regular.ttf");
+}
+@font-face {
+  font-family: "LogoFontMain";
+  src: url("./fonts/Paytone_One/TiltNeon-Regular-VariableFont_XROT\,YROT.ttf");
+}
+
 .App {
   text-align: center;
 }
 
 .App-logo {
-  height: 40vmin;
+  height: 20vmin;
   pointer-events: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+    animation: App-logo-spin infinite 30s linear;
   }
+}
+.Welcome {
+  font-family: LogoFontMain;
+  color: black;
+  font-size: 5vmin;
+  font-weight: bolder;
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  background-color: #ffffff;
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-header-pokemon {
+  background-color: #ceaeb5;
+  min-height: 50vh;
   display: flex;
   flex-direction: column;
   align-items: center;
