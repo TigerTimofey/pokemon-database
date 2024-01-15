@@ -7,15 +7,9 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import CardMedia from "@mui/material/CardMedia";
-import { styled } from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
 
 function AbilityPokemon({ pokemonData }) {
-  const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-    ...theme.typography.body2,
-    color: theme.palette.text.secondary,
-  }));
   return (
     <>
       <TableContainer component={Paper}>

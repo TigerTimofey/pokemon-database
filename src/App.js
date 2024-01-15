@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import logo from "./logo.png";
 import "./App.css";
 import SearchForm from "./forms/SearchForm";
 import Pokemon from "./forms/Pokemon";
+import pokemonImage from "./pokemon.png";
 import Swal from "sweetalert2";
 
 function App() {
@@ -53,7 +54,11 @@ function App() {
         />
       </div>
       <div className="App-header-pokemon Welcome">
-        <Pokemon pokemonData={pokemonData} />
+        {!pokemonData ? (
+          <img src={pokemonImage} alt="logo" width={380} />
+        ) : (
+          <Pokemon pokemonData={pokemonData} />
+        )}
       </div>
     </div>
   );
