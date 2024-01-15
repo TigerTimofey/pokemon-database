@@ -12,6 +12,9 @@ import DataPokemon from "./DataPokemon";
 import AbilityPokemon from "./AbilityPokemon";
 import SpecialPower from "./SpecialPower";
 
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Switch from "@mui/material/Switch";
+
 function Pokemon({ pokemonData }) {
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -26,6 +29,8 @@ function Pokemon({ pokemonData }) {
     color: theme.palette.text.secondary,
   }));
 
+  const [isShiny, setIsShiny] = React.useState(false);
+
   return pokemonData ? (
     <Grid
       container
@@ -33,6 +38,16 @@ function Pokemon({ pokemonData }) {
       columnSpacing={{ xs: 1, sm: 2, md: 3 }}
       sx={{ padding: 3 }}
     >
+      <Grid item xs={12}>
+        <FormControlLabel
+          control={<Switch />}
+          label="Switch to shiny"
+          labelPlacement="top"
+          checked={isShiny}
+          onChange={() => setIsShiny(!isShiny)}
+        />
+      </Grid>
+
       <Grid item xs={12}>
         <ItemImage
           sx={{
@@ -48,10 +63,13 @@ function Pokemon({ pokemonData }) {
               objectFit: "cover",
             }}
             image={
-              pokemonData?.sprites?.other["official-artwork"]?.front_default
+              isShiny
+                ? pokemonData?.sprites?.other["official-artwork"]?.front_shiny
+                : pokemonData?.sprites?.other["official-artwork"]?.front_default
             }
             title="Pokemon Image"
           />
+
           <Grid item xs={6}>
             {" "}
             <CardContent>
@@ -79,7 +97,6 @@ function Pokemon({ pokemonData }) {
                   style={{ marginRight: 8 }}
                 />
               ))}
-
               <Typography
                 variant="body2"
                 color="text.secondary"
@@ -95,7 +112,7 @@ function Pokemon({ pokemonData }) {
 
       <Grid item xs={6}>
         <Item>
-          <AbilityPokemon pokemonData={pokemonData} />
+          <AbilityPokemon isShiny={isShiny} pokemonData={pokemonData} />
         </Item>
       </Grid>
       <Grid item xs={6}>

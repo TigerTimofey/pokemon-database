@@ -9,7 +9,7 @@ import Paper from "@mui/material/Paper";
 import CardMedia from "@mui/material/CardMedia";
 import Grid from "@mui/material/Grid";
 
-function AbilityPokemon({ pokemonData }) {
+function AbilityPokemon({ pokemonData, isShiny }) {
   return (
     <>
       <TableContainer component={Paper}>
@@ -62,7 +62,11 @@ function AbilityPokemon({ pokemonData }) {
               height: 180,
               objectFit: "cover",
             }}
-            image={pokemonData?.sprites.back_default}
+            image={
+              isShiny
+                ? pokemonData?.sprites.back_shiny
+                : pokemonData?.sprites.back_default
+            }
             title="Pokemon Image"
           />
         </Grid>
@@ -74,7 +78,11 @@ function AbilityPokemon({ pokemonData }) {
               height: 180,
               objectFit: "cover",
             }}
-            image={pokemonData?.sprites.front_default}
+            image={
+              isShiny
+                ? pokemonData?.sprites.front_shiny
+                : pokemonData?.sprites.front_default
+            }
             title="Pokemon Image"
           />
         </Grid>
