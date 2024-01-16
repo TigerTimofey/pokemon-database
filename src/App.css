@@ -25,8 +25,22 @@
 .Welcome {
   font-family: LogoFontMain;
   color: black;
-  font-size: 3vmin;
+  font-size: 6vmin;
   font-weight: bolder;
+}
+.Battle {
+  background-image: url(/src/forms/images/battlefield.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.WelcomeBattle {
+  font-family: LogoFontMain;
+  color: rgb(255, 255, 255);
+  font-size: 3vmin;
+  padding-top: 15px;
+  font-weight: bolder;
+  text-align: center;
 }
 
 .App-header {

@@ -57,7 +57,7 @@ function App() {
         {!pokemonData ? (
           <img src={pokemonImage} alt="logo" width={380} />
         ) : (
-          <Pokemon pokemonData={pokemonData} />
+          <Pokemon pokemonData={pokemonData} listOfPokemons={listOfPokemons} />
         )}
       </div>
     </div>

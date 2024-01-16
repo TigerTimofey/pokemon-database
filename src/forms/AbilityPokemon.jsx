@@ -32,15 +32,20 @@ function AbilityPokemon({ pokemonData, isShiny }) {
           <TableBody>
             {pokemonData?.abilities.map((ability, index) => (
               <TableRow key={ability.ability.name}>
+                <TableCell component="th" scope="row" align="center">
+                  {ability.ability?.name.toUpperCase()}
+                </TableCell>
                 <TableCell
                   component="th"
                   scope="row"
                   align="center"
-                  sx={{ padding: 2 }}
+                  sx={{
+                    color: (theme) =>
+                      ability.is_hidden === true
+                        ? theme.palette.success.main
+                        : theme.palette.error.main,
+                  }}
                 >
-                  {ability.ability?.name.toUpperCase()}
-                </TableCell>
-                <TableCell component="th" scope="row" align="center">
                   {ability.is_hidden === true ? "Yes" : "No"}
                 </TableCell>
               </TableRow>
@@ -49,17 +54,12 @@ function AbilityPokemon({ pokemonData, isShiny }) {
         </Table>
       </TableContainer>
 
-      <Grid
-        container
-        rowSpacing={1}
-        columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-        sx={{ padding: 0 }}
-      >
-        <Grid item xs={6}>
+      <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+        <Grid item xs={6} sx={{ display: "flex", justifyContent: "center" }}>
           <CardMedia
             sx={{
-              width: 180,
-              height: 180,
+              width: 130,
+              height: 130,
               objectFit: "cover",
             }}
             image={
@@ -71,11 +71,11 @@ function AbilityPokemon({ pokemonData, isShiny }) {
           />
         </Grid>
 
-        <Grid item xs={6}>
+        <Grid item xs={6} sx={{ display: "flex", justifyContent: "center" }}>
           <CardMedia
             sx={{
-              width: 180,
-              height: 180,
+              width: 130,
+              height: 130,
               objectFit: "cover",
             }}
             image={

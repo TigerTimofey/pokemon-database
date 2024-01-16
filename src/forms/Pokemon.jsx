@@ -15,7 +15,64 @@ import SpecialPower from "./SpecialPower";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 
-function Pokemon({ pokemonData }) {
+import Battle from "./battle/Battle";
+
+function Pokemon({ pokemonData, listOfPokemons }) {
+  const IOSSwitch = styled((props) => (
+    <Switch
+      focusVisibleClassName=".Mui-focusVisible"
+      disableRipple
+      {...props}
+    />
+  ))(({ theme }) => ({
+    width: 42,
+    height: 26,
+    padding: 0,
+    "& .MuiSwitch-switchBase": {
+      padding: 0,
+      margin: 2,
+      transitionDuration: "300ms",
+      "&.Mui-checked": {
+        transform: "translateX(16px)",
+        color: "#fff",
+        "& + .MuiSwitch-track": {
+          backgroundColor:
+            theme.palette.mode === "dark" ? "#2ECA45" : "#65C466",
+          opacity: 1,
+          border: 0,
+        },
+        "&.Mui-disabled + .MuiSwitch-track": {
+          opacity: 0.5,
+        },
+      },
+      "&.Mui-focusVisible .MuiSwitch-thumb": {
+        color: "#33cf4d",
+        border: "6px solid #fff",
+      },
+      "&.Mui-disabled .MuiSwitch-thumb": {
+        color:
+          theme.palette.mode === "light"
+            ? theme.palette.grey[100]
+            : theme.palette.grey[600],
+      },
+      "&.Mui-disabled + .MuiSwitch-track": {
+        opacity: theme.palette.mode === "light" ? 0.7 : 0.3,
+      },
+    },
+    "& .MuiSwitch-thumb": {
+      boxSizing: "border-box",
+      width: 22,
+      height: 22,
+    },
+    "& .MuiSwitch-track": {
+      borderRadius: 26 / 2,
+      backgroundColor: theme.palette.mode === "light" ? "#E9E9EA" : "#39393D",
+      opacity: 1,
+      transition: theme.transitions.create(["background-color"], {
+        duration: 500,
+      }),
+    },
+  }));
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
     ...theme.typography.body2,
@@ -30,18 +87,28 @@ function Pokemon({ pokemonData }) {
   }));
 
   const [isShiny, setIsShiny] = React.useState(false);
-
   return pokemonData ? (
     <Grid
       container
       rowSpacing={1}
       columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-      sx={{ padding: 3 }}
+      sx={{ paddingBottom: 6 }}
     >
       <Grid item xs={12}>
         <FormControlLabel
-          control={<Switch />}
-          label="Switch to shiny"
+          control={<IOSSwitch />}
+          label={
+            <Typography
+              variant="body2"
+              sx={{
+                fontSize: 25,
+                fontWeight: "bold",
+                padding: 1,
+              }}
+            >
+              Switch to shiny
+            </Typography>
+          }
           labelPlacement="top"
           checked={isShiny}
           onChange={() => setIsShiny(!isShiny)}
@@ -70,10 +137,20 @@ function Pokemon({ pokemonData }) {
             title="Pokemon Image"
           />
 
+          <Battle
+            pokemonData={pokemonData}
+            listOfPokemons={listOfPokemons}
+            isShiny={isShiny}
+          />
+
           <Grid item xs={6}>
             {" "}
             <CardContent>
-              <Typography gutterBottom variant="h4">
+              <Typography
+                gutterBottom
+                variant="h5"
+                sx={{ fontWeight: "bolder" }}
+              >
                 (ID: {pokemonData?.id}) {pokemonData?.name?.toUpperCase()}
               </Typography>
 
@@ -94,7 +171,7 @@ function Pokemon({ pokemonData }) {
                       ? "success"
                       : "primary"
                   }
-                  style={{ marginRight: 8 }}
+                  style={{ marginRight: 8, marginTop: 8 }}
                 />
               ))}
               <Typography
@@ -109,20 +186,19 @@ function Pokemon({ pokemonData }) {
           </Grid>
         </ItemImage>
       </Grid>
-
-      <Grid item xs={6}>
+      <Grid item xs={12}>
+        <Item>
+          <SpecialPower pokemonData={pokemonData} />
+        </Item>
+      </Grid>
+      <Grid item xs={12} md={6}>
         <Item>
           <AbilityPokemon isShiny={isShiny} pokemonData={pokemonData} />
         </Item>
       </Grid>
-      <Grid item xs={6}>
+      <Grid item xs={12} md={6}>
         <Item>
-          <DataPokemon pokemonData={pokemonData} />
-        </Item>
-      </Grid>
-      <Grid item xs={12}>
-        <Item>
-          <SpecialPower pokemonData={pokemonData} />
+          <DataPokemon pokemonData={pokemonData} isShiny={isShiny} />
         </Item>
       </Grid>
     </Grid>
