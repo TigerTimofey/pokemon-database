@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/pokemon-database/static/css/main.3ed3340c.css",
+    "main.css": "/pokemon-database/static/css/main.e9e5e3ce.css",
     "main.js": "/pokemon-database/static/js/main.e0d57607.js",
     "static/media/TiltNeon-Regular-VariableFont_XROT,YROT.ttf": "/pokemon-database/static/media/TiltNeon-Regular-VariableFont_XROT,YROT.a97634d0d51330cd1691.ttf",
     "static/media/pokemon.png": "/pokemon-database/static/media/pokemon.3c65c2825eda9571e67b.png",
     "static/media/PaytoneOne-Regular.ttf": "/pokemon-database/static/media/PaytoneOne-Regular.49f0dd262b027f64630e.ttf",
     "static/media/logo.png": "/pokemon-database/static/media/logo.ea749ad74b04e2906b5b.png",
     "index.html": "/pokemon-database/index.html",
-    "main.3ed3340c.css.map": "/pokemon-database/static/css/main.3ed3340c.css.map",
+    "main.e9e5e3ce.css.map": "/pokemon-database/static/css/main.e9e5e3ce.css.map",
     "main.e0d57607.js.map": "/pokemon-database/static/js/main.e0d57607.js.map"
   },
   "entrypoints": [
-    "static/css/main.3ed3340c.css",
+    "static/css/main.e9e5e3ce.css",
     "static/js/main.e0d57607.js"
   ]
 }
