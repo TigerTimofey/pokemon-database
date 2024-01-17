@@ -12,6 +12,9 @@ import Typography from "@mui/material/Typography";
 import CardMedia from "@mui/material/CardMedia";
 import Grid from "@mui/material/Grid";
 
+import HpImage from "./images/hp.png";
+import AttackImage from "./images/attack.png";
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -28,7 +31,10 @@ export default function Battle({ pokemonData, isShiny, listOfPokemons }) {
   const [open, setOpen] = useState(false);
   const [enemyPokemon, setEnemyPokemon] = React.useState("");
 
-  React.useEffect(() => {}, [enemyPokemon]);
+  const [showMissBadge, setShowMissBadge] = React.useState(false);
+  const [showMissBadgeFriend, setShowMissBadgeFriend] = React.useState(false);
+  const [showAttackEnemy, setShowAttackEnemy] = React.useState(false);
+  const [showAttackFriend, setShowAttackFriend] = React.useState(false);
 
   const [hp, setHp] = React.useState(null);
   const [hpEnemy, setHpEnemy] = React.useState(null);
@@ -60,29 +66,68 @@ export default function Battle({ pokemonData, isShiny, listOfPokemons }) {
   };
 
   const handleFight = () => {
-    // Get the attack stats for both the player and the enemy
     const yourAttackStat = pokemonData?.stats[1]?.base_stat;
     const enemyAttackStat = enemyPokemon?.stats[1]?.base_stat;
 
-    // Calculate damage to the player and the enemy
-    const damageToYou = enemyAttackStat;
-    const damageToEnemy = yourAttackStat;
+    const isYourMiss = Math.random() < 0.2;
+    const isEnemyMiss = Math.random() < 0.1; // Reduced miss chance for enemy
 
-    // Calculate new hit points
+    const damageToYou = isYourMiss ? 0 : enemyAttackStat;
+    const damageToEnemy = isEnemyMiss ? 0 : yourAttackStat;
+
     const newHpYou = hp - damageToYou;
     const newHpEnemy = hpEnemy - damageToEnemy;
 
-    // Update hit points
     setHp(newHpYou >= 0 ? newHpYou : 0);
     setHpEnemy(newHpEnemy >= 0 ? newHpEnemy : 0);
 
-    // Check if the battle is won or lost
-    if (newHpEnemy <= 0) {
+    setShowAttackEnemy(true);
+    setShowAttackFriend(true);
+
+    if (isYourMiss) {
+      console.log("Enemy missed!");
+      setShowMissBadge(true);
+
+      setTimeout(() => {
+        setShowMissBadge(false);
+        setShowAttackEnemy(false);
+        setShowAttackFriend(false);
+      }, 1000);
+    } else if (isEnemyMiss) {
+      console.log("You missed!");
+      setShowMissBadgeFriend(true);
+
+      setTimeout(() => {
+        setShowMissBadgeFriend(false);
+        setShowAttackEnemy(false);
+        setShowAttackFriend(false);
+      }, 1000);
+    } else if (newHpEnemy <= 0) {
       console.log("You win!");
+      setTimeout(() => {
+        setShowAttackEnemy(false);
+        setShowAttackFriend(false);
+      }, 2000);
     } else if (newHpYou <= 0) {
       console.log("You lose!");
+      setShowAttackEnemy(false);
+      setShowAttackFriend(false);
     } else {
       console.log("The battle continues!");
+
+      if (showAttackEnemy) {
+        setTimeout(() => {
+          setShowAttackEnemy(true);
+          setShowAttackEnemy(false);
+        }, 2000);
+      }
+
+      if (showAttackFriend) {
+        setTimeout(() => {
+          setShowAttackFriend(true);
+          setShowAttackFriend(false);
+        }, 2000);
+      }
     }
   };
 
@@ -95,8 +140,9 @@ export default function Battle({ pokemonData, isShiny, listOfPokemons }) {
         }}
         variant="outlined"
         color="warning"
+        sx={{ padding: 2, marginLeft: 5 }}
       >
-        BATTLE WITH POKEMON
+        BATTLE
       </Button>
       <Modal
         open={open}
@@ -127,9 +173,38 @@ export default function Battle({ pokemonData, isShiny, listOfPokemons }) {
                       </Typography>
                     </Badge>{" "}
                     <br />
-                    {pokemonData
-                      ? `${hp} / ${pokemonData?.stats[0].base_stat}`
-                      : null}
+                    {pokemonData ? (
+                      <div>
+                        <Typography
+                          component="span"
+                          sx={{ display: "flex", alignItems: "center" }}
+                        >
+                          <CardMedia
+                            component="img"
+                            sx={{ width: 20, height: 20, mr: 1 }}
+                            image={HpImage}
+                            alt="HP Image"
+                          />
+                          {`${hp} / ${pokemonData?.stats[0].base_stat}`}
+                        </Typography>
+                      </div>
+                    ) : null}
+                    {pokemonData ? (
+                      <div>
+                        <Typography
+                          component="span"
+                          sx={{ display: "flex", alignItems: "center" }}
+                        >
+                          <CardMedia
+                            component="img"
+                            sx={{ width: 20, height: 20, mr: 1 }}
+                            image={AttackImage}
+                            alt="Attack Image"
+                          />
+                          {`${pokemonData?.stats[1].base_stat}`}
+                        </Typography>
+                      </div>
+                    ) : null}
                   </TableCell>
                   <TableCell
                     align="center"
@@ -149,9 +224,38 @@ export default function Battle({ pokemonData, isShiny, listOfPokemons }) {
                       </Typography>
                     </Badge>{" "}
                     <br />
-                    {enemyPokemon
-                      ? `${hpEnemy} / ${enemyPokemon?.stats[0].base_stat}`
-                      : null}
+                    {enemyPokemon ? (
+                      <div>
+                        <Typography
+                          component="span"
+                          sx={{ display: "flex", alignItems: "center" }}
+                        >
+                          <CardMedia
+                            component="img"
+                            sx={{ width: 20, height: 20, mr: 1 }}
+                            image={HpImage}
+                            alt="HP Image"
+                          />
+                          {`${hp} / ${enemyPokemon?.stats[0].base_stat}`}
+                        </Typography>
+                      </div>
+                    ) : null}
+                    {enemyPokemon ? (
+                      <div>
+                        <Typography
+                          component="span"
+                          sx={{ display: "flex", alignItems: "center" }}
+                        >
+                          <CardMedia
+                            component="img"
+                            sx={{ width: 20, height: 20, mr: 1 }}
+                            image={AttackImage}
+                            alt="Attack Image"
+                          />
+                          {`${enemyPokemon?.stats[1].base_stat}`}
+                        </Typography>
+                      </div>
+                    ) : null}
                   </TableCell>
                 </TableRow>
               </TableHead>
@@ -168,23 +272,49 @@ export default function Battle({ pokemonData, isShiny, listOfPokemons }) {
               xs={6}
               sx={{ display: "flex", justifyContent: "center" }}
             >
-              {pokemonData && (
-                <CardMedia
-                  sx={{
-                    width: 130,
-                    height: 130,
-                    objectFit: "cover",
-                    position: "absolute",
-                  }}
-                  image={
-                    isShiny
-                      ? pokemonData?.sprites.back_shiny ||
-                        pokemonData?.sprites.front_shiny
-                      : pokemonData?.sprites.back_default
-                  }
-                  title="Pokemon Image"
-                />
-              )}
+              <>
+                {pokemonData && (
+                  <CardMedia
+                    sx={{
+                      width: 130,
+                      height: 130,
+                      objectFit: "cover",
+                      position: "absolute",
+                    }}
+                    image={
+                      isShiny
+                        ? pokemonData?.sprites.back_shiny ||
+                          pokemonData?.sprites.front_shiny
+                        : pokemonData?.sprites.back_default
+                    }
+                    title="Pokemon Image"
+                  />
+                )}
+                {showMissBadgeFriend ? (
+                  <Badge
+                    badgeContent="Miss"
+                    sx={{
+                      position: "absolute",
+                      marginTop: 3,
+                      marginRight: 18,
+                    }}
+                    color="error"
+                  />
+                ) : (
+                  showAttackFriend &&
+                  showAttackFriend && (
+                    <Badge
+                      badgeContent="Attack"
+                      sx={{
+                        position: "absolute",
+                        marginTop: 3,
+                        marginRight: 18,
+                      }}
+                      color="success"
+                    />
+                  )
+                )}
+              </>
             </Grid>
 
             <Grid
@@ -193,17 +323,44 @@ export default function Battle({ pokemonData, isShiny, listOfPokemons }) {
               sx={{ display: "flex", justifyContent: "center" }}
             >
               {enemyPokemon?.sprites?.front_default ? (
-                <CardMedia
-                  sx={{
-                    width: 130,
-                    height: 130,
-                    objectFit: "cover",
-                  }}
-                  image={enemyPokemon.sprites.front_default}
-                  title="Front Pokemon Image"
-                />
+                <>
+                  {" "}
+                  <CardMedia
+                    sx={{
+                      width: 130,
+                      height: 130,
+                      objectFit: "cover",
+                    }}
+                    image={enemyPokemon.sprites.front_default}
+                    title="Front Pokemon Image"
+                  />
+                  {showMissBadge ? (
+                    <Badge
+                      badgeContent="Miss"
+                      sx={{
+                        position: "absolute",
+                        marginTop: 3,
+                        marginRight: 18,
+                      }}
+                      color="error"
+                    />
+                  ) : (
+                    showAttackEnemy &&
+                    showAttackEnemy && (
+                      <Badge
+                        badgeContent="Attack"
+                        sx={{
+                          position: "absolute",
+                          marginTop: 3,
+                          marginRight: 18,
+                        }}
+                        color="success"
+                      />
+                    )
+                  )}
+                </>
               ) : (
-                <div>Searching for a enemy..</div>
+                <div>Searching for an enemy...</div>
               )}
             </Grid>
             <Grid
