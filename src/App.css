@@ -29,7 +29,7 @@
   font-weight: bolder;
 }
 .Battle {
-  background-image: url(/src/forms/images/battlefield.png);
+  /* background-image: url(/src/forms/images/battlefield.png); */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
