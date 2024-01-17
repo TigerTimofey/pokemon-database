@@ -24,7 +24,6 @@ function App() {
           icon: "error",
           title: "Oops...",
           text: `There is no such Pokemon as ${pokemon}`,
-          footer: '<a href="#">See list of all Pokemons</a>',
         });
       });
   };
@@ -57,7 +56,7 @@ function App() {
         {!pokemonData ? (
           <img src={pokemonImage} alt="logo" width={380} />
         ) : (
-          <Pokemon pokemonData={pokemonData} listOfPokemons={listOfPokemons} />
+          <Pokemon pokemonData={pokemonData} />
         )}
       </div>
     </div>

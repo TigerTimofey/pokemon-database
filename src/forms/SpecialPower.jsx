@@ -45,10 +45,10 @@ function SpecialPower({ pokemonData }) {
             {specialAbility !== null && (
               <>
                 <TableCell component="th" scope="row">
-                  {specialAbility?.effect_entries[0]?.effect}
+                  {specialAbility?.effect_entries[1]?.effect}
                 </TableCell>
                 <TableCell component="th" scope="row">
-                  {specialAbility?.effect_entries[0]?.short_effect}
+                  {specialAbility?.effect_entries[1]?.short_effect}
                 </TableCell>
               </>
             )}

@@ -15,9 +15,7 @@ import SpecialPower from "./SpecialPower";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 
-import Battle from "./battle/Battle";
-
-function Pokemon({ pokemonData, listOfPokemons }) {
+function Pokemon({ pokemonData }) {
   const IOSSwitch = styled((props) => (
     <Switch
       focusVisibleClassName=".Mui-focusVisible"
@@ -136,13 +134,6 @@ function Pokemon({ pokemonData, listOfPokemons }) {
             }
             title="Pokemon Image"
           />
-
-          <Battle
-            pokemonData={pokemonData}
-            listOfPokemons={listOfPokemons}
-            isShiny={isShiny}
-          />
-
           <Grid item xs={6}>
             {" "}
             <CardContent>
